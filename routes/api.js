@@ -7,7 +7,6 @@ const verifiedUrl = {};
 router.post('/shorturl', (req, res, next) => {
     const urlData = req.body.url;
 
-   // 'ENOTFOUND'
     dns.lookup(urlData, (err, address, family) => {
         if (err){
             if (err.code ===  'ENOTFOUND'){
@@ -16,19 +15,17 @@ router.post('/shorturl', (req, res, next) => {
                return res.json({ error: 'DNS lookup error'});
         } else {
             const id = Math.floor(Math.random() * 100);
-            verifiedUrl['id'] = id;
+            verifiedUrl[id] = urlData;
             res.json({ original_url: urlData, short_url: id});
-            next();
         }
     })
 });
 
 
-router.get('/:id?', (req, res) => {
+router.get('/:id', (req, res) => {
     const shortUrl = req.params.id;
-    const id = verifiedUrl.id;
 
-    if(!verifiedUrl.hasOwnProperty(shortUrl)){
+    if(!shortUrl || !verifiedUrl.hasOwnProperty(shortUrl)){
       return res.json({error: 'Url not Found'});
     } else {
       res.redirect(verifiedUrl[shortUrl]);
