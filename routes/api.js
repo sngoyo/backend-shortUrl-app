@@ -11,7 +11,7 @@ router.post('/shorturl', (req, res, next) => {
         if (err === 'ENOTFOUND'){
            return res.json({ error: 'Invalid url'});
         } else {
-            const id = Math.Floor(Math.random() * 100);
+            const id = Math.floor(Math.random() * 100);
             verifiedUrl['id'] = id;
             res.json({ original_url: urlData, short_url: id});
             next();
