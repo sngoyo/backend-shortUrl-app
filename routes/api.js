@@ -7,7 +7,7 @@ const verifiedUrl = {};
 router.post('/shorturl', (req, res, next) => {
     const urlData = req.body.url;
 
-    dns.lookup(urlData, (err, address, family) => {
+    dns.lookup(urlData.hostname, (err, address, family) => {
         if (err === 'ENOTFOUND'){
            return res.json({ error: 'Invalid url'});
         } else {
