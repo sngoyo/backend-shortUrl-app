@@ -8,7 +8,7 @@ router.post('/shorturl', (req, res, next) => {
     const urlData = req.body.url;
 
     dns.lookup(urlData, (err, address, family) => {
-        if (err & err.code === 'ENOTFOUND'){
+        if (err === 'ENOTFOUND'){
            return res.json({ error: 'Invalid url'});
         } else {
             const id = Math.Floor(Math.random() * 100);
