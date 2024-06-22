@@ -17,19 +17,19 @@ router.post('/shorturl', (req, res, next) => {
         } else {
             const id = Math.floor(Math.random() * 100);
             verifiedUrl[id] = urlData;
-            res.json({ 'original_ur': urlData, 'short_url': id});
+            res.json({ 'original_url': urlData, 'short_url': id});
         }
     })
 });
 
 
-router.get('/:id', (req, res) => {
-    const shortUrl = req.params.id;
+router.get('/id', (req, res) => {
+    const shortUrlId = req.params.id;
 
-    if(!shortUrl || !verifiedUrl.hasOwnProperty(shortUrl)){
-      return res.json({error: 'Url not Found'});
+    if(!shortUrlId || !verifiedUrl.hasOwnProperty(shortUrl)){
+      return res.json({error: 'Short Url not Found'});
     } else {
-      res.redirect(verifiedUrl[shortUrl]);
+      res.redirect(verifiedUrl[shortUrlId]);
     } 
 })
 
