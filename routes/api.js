@@ -17,7 +17,7 @@ router.post('/shorturl', (req, res, next) => {
         } else {
             const id = Math.floor(Math.random() * 100);
             verifiedUrl[id] = urlData;
-            res.json({ original_url: urlData, short_url: id});
+            res.json({ 'original_ur': urlData, 'short_url': id});
         }
     })
 });
