@@ -6,10 +6,11 @@ const dns = require('dns');
 const verifiedUrl = {};
 router.post('/shorturl', (req, res, next) => {
     const urlData = req.body.url;
+    const urlHostname = new URL(urlData).hostname;
 
-    dns.lookup(urlData, (err, address, family) => {
-        if (err){
-            if (err.code ===  'ENOTFOUND'){
+    dns.lookup(urlHostname, (error, address, family) => {
+        if (error){
+            if (error.code ===  'ENOTFOUND'){
                return res.json({ error: 'Invalid url'});
             } else
                return res.json({ error: 'DNS lookup error'});
