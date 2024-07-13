@@ -1,3 +1,13 @@
 
-POST http://localhost:3000/api/www.google.com HTTP/1.1
+GET http://localhost:3000/api/youtube.com/6 HTTP/1.1
 
+
+####
+
+POST http://localhost:3000/api/shorturl  HTTP/1.2
+
+content-type: application/json
+
+{
+    "url": "http://example.com"
+}

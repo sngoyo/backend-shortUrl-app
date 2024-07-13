@@ -1,39 +1,40 @@
 const express = require('express');
 const router = express.Router();
 const dns = require('dns');
-const bodyParser = require('body-parser');
+//const urlParser = require('url');
+//const bodyParser = require('body-parser');
 
+//var jsonParser = bodyParser.json()
+//var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 const verifiedUrl = {};
-router.post('/:shorturl', (req, res) => {
-   const urlData = req.body.url;
+router.post('/shorturl', (req, res) => {
+   let  urlData  = req.body.url;
 
-   console.log('urlData: ' + urlData);
-   
- 
+   console.log("urlData : "+ urlData);
+  
    const options = {
     all: true,
    };
 
 
-    dns.lookup(urlData, options, (error, address, family) => {
-      if (error){
-            if (error.code ===  'ENOTFOUND'){
-               return res.json({ error: 'Invalid url yes'});
+    dns.lookup(urlData, options, (err, address) => {
+      if (err){
+            //if (err.code ===  'ENOTFOUND'){
+               return res.json({ error: 'Invalid url'});
                
-            } else
-               return res.json({ error: 'DNS lookup error'});
+         //  } else
+              // return res.json({ error: 'DNS lookup error'});
               
         } else {
             const id = Math.floor(Math.random() * 100);
-            verifiedUrl[id] = urlData;
+             verifiedUrl[id] = urlData;
             res.json({ 
               'original_url': urlData,
                'short_url': id
               });
-            // return res.send({ 'original_url': urlData});
-            
+           
         }
     })
     
@@ -41,15 +42,16 @@ router.post('/:shorturl', (req, res) => {
 });
 
 
-router.get('/:shorturl/:id', (req, res) => {
-    const shortUrlId = req.params.id;
-   
+router.get('/shorturl/:id', (req, res) => {
+    const shortUrlId = parseInt(req.params.id);
+     console.log("shorturlid :"+ shortUrlId + " verifiedUrl :"+ verifiedUrl[shortUrlId]);
+    
 
-    if(!shortUrlId || !verifiedUrl.hasOwnProperty(shortUrlId)){
-       // console.log('verifiedUrl: '+  verifiedUrl[shortUrlId]);
+    if(isNaN(shortUrlId) || !verifiedUrl.hasOwnProperty(shortUrlId)){
       return res.json({error: 'Short Url not Found'});
     
     } else {
+      console.log('verifiedUrl: '+  verifiedUrl[shortUrlId]);
       res.redirect(verifiedUrl[shortUrlId]);
     } 
 })
