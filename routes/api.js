@@ -10,11 +10,14 @@ router.post('/shorturl', (req, res) => {
 
    console.log("urlData : "+ urlData);
 
-   //Retrieving Url hostname
-   const newUrlData = new URL(urlData).hostname;
+   const regexStr = /^http[s]*\:\/\/w{3}\.[a-zA-Z]+\.[a-zA-Z]+$/gm;
  
+   if(regexStr.test(urlData)){
 
-    dns.lookup (newUrlData, async(err, address) => {
+   //Retrieving Url hostname
+      const newUrlData = new URL(urlData).hostname;
+   
+      dns.lookup (newUrlData, async(err, address) => {
       if (err){
          return res.json({ error: 'invalid url'});
                
@@ -27,8 +30,12 @@ router.post('/shorturl', (req, res) => {
                'short_url': id
               });
            
-        }
-    })
+         }
+      })
+
+  } else {
+     return res.json({"error": "invalid url"});
+  }
     
     
 });
