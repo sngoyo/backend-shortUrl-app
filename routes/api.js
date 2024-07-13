@@ -1,11 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const dns = require('dns');
-//const urlParser = require('url');
-//const bodyParser = require('body-parser');
-
-//var jsonParser = bodyParser.json()
-//var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 const verifiedUrl = {};
@@ -16,20 +11,12 @@ router.post('/shorturl', (req, res) => {
 
    //Retrieving Url hostname
    const newUrlData = new URL(urlData).hostname;
-  
-   const options = {
-    all: true,
-   };
+ 
 
-
-    dns.lookup(newUrlData, options, (err, address) => {
+    dns.lookup(newUrlData, (err, address) => {
       if (err){
-            //if (err.code ===  'ENOTFOUND'){
-               return res.json({ error: 'Invalid url'});
+         return res.json({ error: 'invalid url'});
                
-         //  } else
-              // return res.json({ error: 'DNS lookup error'});
-              
         } else {
             const id = Math.floor(Math.random() * 100);
              verifiedUrl[id] = urlData;
