@@ -7,7 +7,8 @@ const shorturlSchema = new mongoose.Schema({
     },
      shortId : {
         type: Number, 
-        required : true
+        required : true,
+        default: 0
     }
 })
 
