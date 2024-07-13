@@ -19,7 +19,7 @@ router.post('/shorturl', (req, res) => {
    
       dns.lookup (newUrlData, async(err, address) => {
       if (err){
-         return res.json({ error: 'invalid url'});
+         return res.json({ err: 'invalid url'});
                
         } else {
             const id = Math.floor(Math.random() * 100);
