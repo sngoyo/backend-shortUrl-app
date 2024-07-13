@@ -4,7 +4,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const urlShortener = require('./routes/api');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
+
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 
 //Connecting to Mongodb database
 mongoose.connect(process.env.DATABASE_PATH)
@@ -14,9 +20,6 @@ mongoose.connect(process.env.DATABASE_PATH)
         .catch((error) => {
             console.log('Error connecting to mongoDB :', error);
         })
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.urlencoded({ extended: false }));
 
 
 app.use('/api', urlShortener);

@@ -12,8 +12,10 @@ router.post('/shorturl', (req, res) => {
 
    const regexStr = /^http[s]*\:\/\/w{3}\.[a-z]+\.[a-z]{3}$/gm;
  
-   if(regexStr.test(urlData)){
-
+   if(!regexStr.test(urlData)){
+    return res.json({"error": "invalid url"});
+   } else {
+    
    //Retrieving Url hostname
       const newUrlData = new URL(urlData).hostname;
    
@@ -33,8 +35,7 @@ router.post('/shorturl', (req, res) => {
          }
       })
 
-  } else {
-     return res.json({"error": "invalid url"});
+ 
   }
     
     
