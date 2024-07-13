@@ -13,13 +13,16 @@ router.post('/shorturl', (req, res) => {
    let  urlData  = req.body.url;
 
    console.log("urlData : "+ urlData);
+
+   //Retrieving Url hostname
+   const newUrlData = new URL(urlData).hostname;
   
    const options = {
     all: true,
    };
 
 
-    dns.lookup(urlData, options, (err, address) => {
+    dns.lookup(newUrlData, options, (err, address) => {
       if (err){
             //if (err.code ===  'ENOTFOUND'){
                return res.json({ error: 'Invalid url'});
