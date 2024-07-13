@@ -10,7 +10,7 @@ router.post('/shorturl', (req, res) => {
 
    console.log("urlData : "+ urlData);
 
-   const regexStr = /^http[s]*\:\/\/w{3}\.[a-zA-Z]+\.[a-zA-Z]+$/gm;
+   const regexStr = /^http[s]*\:\/\/w{3}\.[a-z]+\.[a-z]{3}$/gm;
  
    if(regexStr.test(urlData)){
 
