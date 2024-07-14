@@ -43,7 +43,7 @@ router.post('/shorturl', (req, res) => {
 
 
 router.get('/shorturl/:id', async(req, res) => {
-    const id = Number(req.params.id)
+    const id = req.params.id
     const short = await urlModel.findOne({ shortId: id });
 
       console.log(`short is ${short}`);
