@@ -12,7 +12,8 @@ router.post('/shorturl', (req, res) => {
 
    const regexStr = /^http[s]*\:\/\/w{3}\.[a-z]+\.[a-z]{3}$/gm;
  
-   if(!regexStr.test(urlData)){
+   //if(!regexStr.test(urlData)){
+    if(!urlData.includes("https://") && !urlData.includes("http://")){
     return res.json({"error": "invalid url"});
    } else {
     
