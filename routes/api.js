@@ -8,11 +8,10 @@ const verifiedUrl = {};
 router.post('/shorturl', (req, res) => {
    let  urlData  = req.body.url;
 
+   //Logging data for the url
    console.log("urlData : "+ urlData);
 
-   const regexStr = /^http[s]*\:\/\/w{3}\.[a-z]+\.[a-z]{3}$/gm;
- 
-   //if(!regexStr.test(urlData)){
+  //Validation of "https://"" and "http://"" for the received url
     if(!urlData.includes("https://") && !urlData.includes("http://")){
     return res.json({"error": "invalid url"});
    } else {
@@ -20,6 +19,7 @@ router.post('/shorturl', (req, res) => {
    //Retrieving Url hostname
       const newUrlData = new URL(urlData).hostname;
    
+      
       dns.lookup (newUrlData, async(err, address) => {
       if (err){
          return res.json({ err: 'invalid url'});

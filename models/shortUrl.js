@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//Creating model schema to be able to fill data in mongoDB database
 const shorturlSchema = new mongoose.Schema({
      url : { 
         type: String,
@@ -10,7 +11,5 @@ const shorturlSchema = new mongoose.Schema({
         required : true,
     }
 })
-
-//mongoose.SchemaTypes.ObjectId,
 
 module.exports = mongoose.model('shortUrl', shorturlSchema);
