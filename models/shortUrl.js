@@ -6,11 +6,11 @@ const shorturlSchema = new mongoose.Schema({
         required : true
     },
      shortId : {
-        type: mongoose.SchemaTypes.ObjectId, 
+        type:  Number,
         required : true,
-        default: 0
     }
 })
 
+//mongoose.SchemaTypes.ObjectId,
 
 module.exports = mongoose.model('shortUrl', shorturlSchema);
